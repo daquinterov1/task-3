@@ -134,10 +134,6 @@ list_modelos= list(ols, logit, probit)
 r_outreg = rockchalk::outreg(list_modelos) 
 cat(r_outreg, file= 'views/outreg.tex')
 
-outreg_model = rockchalk::outreg(all_results[[1]],title = "Night Lights Estimation", float = TRUE)
-outreg_model
-cat(outreg_model,file = 'views/Resultados 2.tex')
-
   #2.5 
 library(margins)
 library(broom)
