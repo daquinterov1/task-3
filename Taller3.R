@@ -132,9 +132,9 @@ probit= glm(formula= fallecido~tipo_accidente+ year+ month+ condicion + genero +
   #2.4 
 list_modelos= list(ols, logit, probit)
 r_outreg = outreg(list_modelos) 
-cat(r_outreg, file = "outreg.txt")
 
   #2.5 
+
 
 ### PUNTO 3 - WEB SCRAPING ###
 # Initial configuration
