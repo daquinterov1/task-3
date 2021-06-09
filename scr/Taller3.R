@@ -114,7 +114,8 @@ ggsave(plot = map2, file = "views/Mapa.pdf")
 
 # initial configuration
 rm(list = ls()) # limpia el entorno de R
-pacman::p_load(tidyverse,lfe,plm,AER,margins,stargazer,outreg,broom,estimatr, ggplot2) # cargar y/o instalar paquetes a usar
+pacman::p_load(tidyverse,lfe,plm,AER,margins,stargazer,outreg,broom,estimatr, ggplot2)
+pacman::p_load(effects)# cargar y/o instalar paquetes a usar
 
   # 2.1
 df = readRDS("data/output/f_mapmuse.rds")
@@ -137,10 +138,20 @@ cat(r_outreg, file= 'views/outreg.tex')
   #2.5 
 library(margins)
 library(broom)
+library(effects)
 
 logit2 = logit %>% ggplot(aes(x=dist_hospi, y=tipo_accidente, ymin=conf.low, ymax=conf.high)) +
   geom_pointrange() + geom_hline(yintercept = 0, col = "orange")
 logit2
+
+#Plot marginal effects
+mod.cowles <- mylogit
+eff.logit <- allEffects(logit)
+
+# the following are equivalent:
+par(mfrow=c(2,2))
+plot(eff.cowles, 'GENERO', ylab="Prob(Logro matematicas)")
+
 
 
 ### PUNTO 3 - WEB SCRAPING ###
