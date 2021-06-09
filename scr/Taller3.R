@@ -142,6 +142,7 @@ logit2 = logit %>% ggplot(aes(x=dist_hospi, y=tipo_accidente, ymin=conf.low, yma
   geom_pointrange() + geom_hline(yintercept = 0, col = "orange")
 logit2
 
+
 ### PUNTO 3 - WEB SCRAPING ###
 # Initial configuration
 rm(list = ls())
@@ -150,7 +151,7 @@ pacman::p_load(tidyverse,data.table,plyr,XML,rvest,xml2)
   # 3.1
 myurl = "https://es.wikipedia.org/wiki/Departamentos_de_Colombia"
 myhtml = read_html(myurl)
-class(myhtml)
+class(myhtml) # Se lee el archivo con 'read_html' que va a la ruta y extrae la información requerida. 
 
   # 3.2
 myhtml %>% html_nodes(xpath = '//*[@id="firstHeading"]')
@@ -163,4 +164,4 @@ parse = myhtml %>% htmlParse()
 tablas = parse %>% readHTMLTable(header = T)
 tablas[[4]] %>% class()
 tablas[[4]]
-deptos = tablas[[4]]
+deptos = tablas[[4]] # Se extrae la tabla que contiene los departamentos de Colombia. 
