@@ -11,7 +11,7 @@
 
 # initial configuration
 rm(list = ls()) # limpia el entorno de R
-pacman::p_load(tidyverse,sf,raster,leaflet,skimr, here, viridis, gapmindere) # cargar y/o instalar paquetes a usar
+pacman::p_load(tidyverse,sf,raster,leaflet,skimr, here, viridis, gapmindere,effects) # cargar y/o instalar paquetes a usar
 
 
 ### PUNTO 1 - DATOS ESPACIALES ###
@@ -140,19 +140,15 @@ library(margins)
 library(broom)
 library(effects)
 
-logit2 = logit %>% ggplot(aes(x=dist_hospi, y=tipo_accidente, ymin=conf.low, ymax=conf.high)) +
-  geom_pointrange() + geom_hline(yintercept = 0, col = "orange")
-logit2
+"Efecto marginal - Logit"
+efecto_marginal_logit = Effect("dist_hospi",logit)
+grafica_logit = plot(efecto_marginal_logit,ylab = "Probabilidad de fallecer",xlab = "Efecto marginal de la distancia a un centro medico")
+ggsave(plot = grafica_logit,file = "views/logit.png")
 
-#Plot marginal effects
-mod.cowles <- mylogit
-eff.logit <- allEffects(logit)
-
-# the following are equivalent:
-par(mfrow=c(2,2))
-plot(eff.cowles, 'GENERO', ylab="Prob(Logro matematicas)")
-
-
+"Efecto marginal - Probit"
+efecto_marginal_probit = Effect("dist_hospi",probit)
+grafica_probit = plot(efecto_marginal_probit,ylab = "Probabilidad de fallecer",xlab = "Efecto marginal de la distancia a un centro medico" )
+ggsave(plot = grafica_probit,file = "views/probit.png")
 
 ### PUNTO 3 - WEB SCRAPING ###
 # Initial configuration
